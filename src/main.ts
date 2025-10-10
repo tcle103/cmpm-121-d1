@@ -20,8 +20,11 @@ function incrementer() {
   const elapsed = now - start;
   start = now;
 
-  const inc = elapsed / 1000;
+  const inc = elapsed / 1000 * growthRate;
   updatePetals(inc);
+  if (count >= 10) {
+    upgradeButton1.disabled = false;
+  }
   requestAnimationFrame(incrementer);
 }
 
