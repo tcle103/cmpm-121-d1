@@ -13,3 +13,8 @@ button.addEventListener("click", () => {
   ++count;
   counterDiv.innerHTML = `Petals: ${count}`;
 });
+
+setInterval(() => {
+  ++count;
+  counterDiv.innerHTML = `Petals: ${count}`;
+}, 1000);
