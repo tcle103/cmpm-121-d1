@@ -9,7 +9,7 @@ counterDiv.innerHTML += `Petals: ${count}`;
 
 button.innerText = "🥀";
 document.body.append(button);
-button.addEventListener("click", (e) => {
+button.addEventListener("click", () => {
   ++count;
   counterDiv.innerHTML = `Petals: ${count}`;
 });
