@@ -8,10 +8,21 @@ const button: HTMLButtonElement = document.createElement("button");
 const upgradeButton1: HTMLButtonElement = document.createElement("button");
 let count: number = 0;
 let growthRate: number = 0;
+let start: number = performance.now();
 
 function updatePetals(amt: number): void {
   count += amt;
-  counterDiv.innerHTML = `Petals: ${count}`;
+  counterDiv.innerHTML = `Petals: ${count.toFixed(2)}`;
+}
+
+function incrementer() {
+  const now = performance.now();
+  const elapsed = now - start;
+  start = now;
+
+  const inc = elapsed / 1000;
+  updatePetals(inc);
+  requestAnimationFrame(incrementer);
 }
 
 overallDiv.id = "overall";
@@ -24,7 +35,7 @@ overallDiv.append(infoDiv);
 overallDiv.append(upgradeDiv);
 
 infoDiv.append(counterDiv);
-counterDiv.innerHTML += `Petals: ${count}`;
+counterDiv.innerHTML += `Petals: ${count.toFixed(2)}`;
 
 button.innerText = "🥀";
 infoDiv.append(button);
@@ -44,11 +55,4 @@ upgradeButton1.addEventListener("click", () => {
 });
 upgradeButton1.disabled = true;
 
-growthRate = 0;
-
-setInterval(() => {
-  updatePetals(1 * growthRate);
-  if (count >= 10) {
-    upgradeButton1.disabled = false;
-  }
-}, 1000);
+requestAnimationFrame(incrementer);
