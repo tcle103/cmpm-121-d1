@@ -3,3 +3,14 @@
   vertical-align: top;
   border: 1px solid salmon;
 }
+
+#overall {
+  display: flex;
+  flex-direction: row;
+}
+
+.items {
+  height: 300px;
+  width: 200px;
+  padding: 10px;
+}
