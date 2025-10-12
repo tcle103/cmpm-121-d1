@@ -88,6 +88,7 @@ ownedDiv.append(butt2Div);
 ownedDiv.append(butt3Div);
 butt1Div.className = "inner";
 butt2Div.className = "inner";
+butt3Div.className = "inner";
 butt1Div.innerHTML = `PetalPluckers: ${butt1Owned} owned`;
 butt2Div.innerHTML = `BloomBusters: ${butt2Owned} owned`;
 butt3Div.innerHTML = `FlowerMowers: ${butt3Owned} owned`;
