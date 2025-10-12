@@ -5,6 +5,10 @@ const infoDiv: HTMLDivElement = document.createElement("div");
 const upgradeDiv: HTMLDivElement = document.createElement("div");
 const counterDiv: HTMLDivElement = document.createElement("div");
 const growthDiv: HTMLDivElement = document.createElement("div");
+const ownedDiv: HTMLDivElement = document.createElement("div");
+const butt1Div: HTMLDivElement = document.createElement("div");
+const butt2Div: HTMLDivElement = document.createElement("div");
+const butt3Div: HTMLDivElement = document.createElement("div");
 const button: HTMLButtonElement = document.createElement("button");
 const upgradeButton1: HTMLButtonElement = document.createElement("button");
 const upgradeButton2: HTMLButtonElement = document.createElement("button");
@@ -12,6 +16,9 @@ const upgradeButton3: HTMLButtonElement = document.createElement("button");
 let count: number = 0;
 let growthRate: number = 0;
 let start: number = performance.now();
+let butt1Owned: number = 0;
+let butt2Owned: number = 0;
+let butt3Owned: number = 0;
 
 function updatePetals(amt: number): void {
   count += amt;
@@ -63,6 +70,7 @@ overallDiv.append(upgradeDiv);
 
 infoDiv.append(counterDiv);
 infoDiv.append(growthDiv);
+ownedDiv.className = "inner";
 counterDiv.className = "inner";
 growthDiv.className = "inner";
 growthDiv.innerHTML = `${growthRate.toFixed(1)} petals/sec`;
@@ -74,6 +82,19 @@ button.addEventListener("click", () => {
   updatePetals(1);
 });
 
+infoDiv.append(ownedDiv);
+ownedDiv.append(butt1Div);
+ownedDiv.append(butt2Div);
+ownedDiv.append(butt3Div);
+butt1Div.className = "inner";
+butt2Div.className = "inner";
+butt1Div.innerHTML = `PetalPluckers: ${butt1Owned} owned`;
+butt2Div.innerHTML = `BloomBusters: ${butt2Owned} owned`;
+butt3Div.innerHTML = `FlowerMowers: ${butt3Owned} owned`;
+butt1Div.style.display = "none";
+butt2Div.style.display = "none";
+butt3Div.style.display = "none";
+
 upgradeButton1.innerText =
   "Invest in a PetalPlucker 3000 for 10 petals\n(+0.1 petals/sec)";
 upgradeDiv.append(upgradeButton1);
@@ -81,6 +102,8 @@ upgradeButton1.addEventListener("click", () => {
   updateGrowth(.1);
   updateButton();
   updatePetals(-10);
+  butt1Div.style.display = "block";
+  butt1Div.innerHTML = `PetalPluckers: ${++butt1Owned} owned`;
 });
 upgradeButton1.disabled = true;
 
@@ -91,6 +114,8 @@ upgradeButton2.addEventListener("click", () => {
   updateGrowth(2);
   updateButton();
   updatePetals(-100);
+  butt2Div.style.display = "block";
+  butt2Div.innerHTML = `BloomBusters: ${++butt2Owned} owned`;
 });
 upgradeButton2.disabled = true;
 
@@ -101,6 +126,8 @@ upgradeButton3.addEventListener("click", () => {
   updateGrowth(50);
   updateButton();
   updatePetals(-1000);
+  butt3Div.style.display = "block";
+  butt3Div.innerHTML = `FlowerMowers: ${++butt3Owned} owned`;
 });
 upgradeButton3.disabled = true;
 
