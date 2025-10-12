@@ -18,7 +18,7 @@ function updatePetals(amt: number): void {
 
 function updateGrowth(amt: number): void {
   growthRate += amt;
-  growthDiv.innerHTML = `${growthRate.toFixed(2)} petals/sec`;
+  growthDiv.innerHTML = `${growthRate.toFixed(1)} petals/sec`;
 }
 
 function incrementer() {
@@ -45,7 +45,7 @@ overallDiv.append(upgradeDiv);
 
 infoDiv.append(counterDiv);
 infoDiv.append(growthDiv);
-growthDiv.innerHTML = `${growthRate.toFixed(2)} petals/sec`;
+growthDiv.innerHTML = `${growthRate.toFixed(1)} petals/sec`;
 counterDiv.innerHTML = `Petals: ${count.toFixed(2)}`;
 
 button.innerText = "🥀";
