@@ -4,6 +4,7 @@ const overallDiv: HTMLDivElement = document.createElement("div");
 const infoDiv: HTMLDivElement = document.createElement("div");
 const upgradeDiv: HTMLDivElement = document.createElement("div");
 const counterDiv: HTMLDivElement = document.createElement("div");
+const growthDiv: HTMLDivElement = document.createElement("div");
 const button: HTMLButtonElement = document.createElement("button");
 const upgradeButton1: HTMLButtonElement = document.createElement("button");
 let count: number = 0;
@@ -13,6 +14,11 @@ let start: number = performance.now();
 function updatePetals(amt: number): void {
   count += amt;
   counterDiv.innerHTML = `Petals: ${count.toFixed(2)}`;
+}
+
+function updateGrowth(amt: number): void {
+  growthRate += amt;
+  growthDiv.innerHTML = `${growthRate.toFixed(2)} petals/sec`;
 }
 
 function incrementer() {
@@ -38,7 +44,9 @@ overallDiv.append(infoDiv);
 overallDiv.append(upgradeDiv);
 
 infoDiv.append(counterDiv);
-counterDiv.innerHTML += `Petals: ${count.toFixed(2)}`;
+infoDiv.append(growthDiv);
+growthDiv.innerHTML = `${growthRate.toFixed(2)} petals/sec`;
+counterDiv.innerHTML = `Petals: ${count.toFixed(2)}`;
 
 button.innerText = "🥀";
 infoDiv.append(button);
@@ -52,7 +60,7 @@ button.addEventListener("click", () => {
 upgradeButton1.innerText = "Invest in a PetalPlucker 3000";
 upgradeDiv.append(upgradeButton1);
 upgradeButton1.addEventListener("click", () => {
-  ++growthRate;
+  updateGrowth(1);
   upgradeButton1.disabled = true;
   updatePetals(-10);
 });
