@@ -85,6 +85,7 @@ function updateOwned(itemNum: number): void {
   buttDivs[itemNum].innerHTML = `${availableItems[itemNum].short}s: ${
     availableItems[itemNum].owned
   } owned`;
+  buttDivs[itemNum].style.display = "block";
 }
 
 overallDiv.id = "overall";
@@ -131,6 +132,7 @@ for (let i = 0; i < availableItems.length; ++i) {
     availableItems[i].owned
   } owned`;
   div.className = "inner";
+  div.style.display = "none";
   ownedDiv.append(div);
 }
 
