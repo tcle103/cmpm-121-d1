@@ -13,6 +13,18 @@ const button: HTMLButtonElement = document.createElement("button");
 const upgradeButton1: HTMLButtonElement = document.createElement("button");
 const upgradeButton2: HTMLButtonElement = document.createElement("button");
 const upgradeButton3: HTMLButtonElement = document.createElement("button");
+interface Item {
+  name: string;
+  cost: number;
+  rate: number;
+}
+const availableItems: Item[] = [
+  { name: "PetalPlucker 3000", cost: 10, rate: 0.1 },
+  { name: "BloomBuster 250", cost: 100, rate: 2 },
+  { name: "FlowerMower X", cost: 1000, rate: 50 },
+];
+const buttons: HTMLButtonElement[] = [];
+
 let butt1Price: number = 10;
 let butt2Price: number = 100;
 let butt3Price: number = 1000;
@@ -30,17 +42,17 @@ function updatePetals(amt: number): void {
 }
 
 function updateButton(): void {
-  if (count >= butt1Price) {
+  if (count >= availableItems[0].cost) {
     upgradeButton1.disabled = false;
   } else {
     upgradeButton1.disabled = true;
   }
-  if (count >= butt2Price) {
+  if (count >= availableItems[1].cost) {
     upgradeButton2.disabled = false;
   } else {
     upgradeButton2.disabled = true;
   }
-  if (count >= butt3Price) {
+  if (count >= availableItems[2].cost) {
     upgradeButton3.disabled = false;
   } else {
     upgradeButton3.disabled = true;
@@ -98,6 +110,15 @@ butt3Div.innerHTML = `FlowerMowers: ${butt3Owned} owned`;
 butt1Div.style.display = "none";
 butt2Div.style.display = "none";
 butt3Div.style.display = "none";
+
+for (let i = 0; i < availableItems.length; ++i) {
+  const butt = document.createElement("button");
+  buttons.push(butt);
+  butt.innerText = `Invest in a ${availableItems[i].name} for ${
+    availableItems[i].cost
+  } petals\n(+${availableItems[i].rate} petals/sec)`;
+  upgradeDiv.append(butt);
+}
 
 upgradeButton1.innerText =
   `Invest in a PetalPlucker 3000 for ${butt1Price} petals\n(+0.1 petals/sec)`;
