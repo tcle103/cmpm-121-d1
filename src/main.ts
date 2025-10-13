@@ -44,12 +44,15 @@ let count: number = 0;
 let growthRate: number = 0;
 let start: number = performance.now();
 
+// updates petal count and display
 function updatePetals(amt: number): void {
   count += amt;
   counterDiv.innerHTML = `Petals: ${count.toFixed(2)}`;
   updateButton();
 }
 
+// updates button disabled/enabled depending on
+// if player has enough petals to buy upgrade
 function updateButton(): void {
   for (let i: number = 0; i < buttons.length; ++i) {
     if (count >= availableItems[i].cost) {
@@ -60,11 +63,13 @@ function updateButton(): void {
   }
 }
 
+// updates growth rate status in accordance to updates
 function updateGrowth(amt: number): void {
   growthRate += amt;
   growthDiv.innerHTML = `${growthRate.toFixed(1)} petals/sec`;
 }
 
+// animates smooth increase w/ growth rate
 function incrementer() {
   const now = performance.now();
   const elapsed = now - start;
@@ -75,6 +80,7 @@ function incrementer() {
   requestAnimationFrame(incrementer);
 }
 
+// updates display of how many of ea. upgrade owned
 function updateOwned(itemNum: number): void {
   buttDivs[itemNum].innerHTML = `${availableItems[itemNum].short}s: ${
     availableItems[itemNum].owned
