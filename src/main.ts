@@ -42,20 +42,12 @@ function updatePetals(amt: number): void {
 }
 
 function updateButton(): void {
-  if (count >= availableItems[0].cost) {
-    upgradeButton1.disabled = false;
-  } else {
-    upgradeButton1.disabled = true;
-  }
-  if (count >= availableItems[1].cost) {
-    upgradeButton2.disabled = false;
-  } else {
-    upgradeButton2.disabled = true;
-  }
-  if (count >= availableItems[2].cost) {
-    upgradeButton3.disabled = false;
-  } else {
-    upgradeButton3.disabled = true;
+  for (let i: number = 0; i < buttons.length; ++i) {
+    if (count >= availableItems[i].cost) {
+      buttons[i].disabled = false;
+    } else {
+      buttons[i].disabled = true;
+    }
   }
 }
 
