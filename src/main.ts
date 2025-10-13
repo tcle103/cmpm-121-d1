@@ -14,6 +14,7 @@ interface Item {
   rate: number;
   owned: number;
   short: string;
+  desc: string;
 }
 const availableItems: Item[] = [
   {
@@ -22,6 +23,7 @@ const availableItems: Item[] = [
     rate: 0.1,
     owned: 0,
     short: "PetalPlucker",
+    desc: "Plucks petals from wildflowers for you!",
   },
   {
     name: "BloomBuster 250",
@@ -29,6 +31,8 @@ const availableItems: Item[] = [
     rate: 2,
     owned: 0,
     short: "BloomBuster",
+    desc:
+      "Cuts blooms and separates out petals with a proprietary PetalPolishing system!",
   },
   {
     name: "FlowerMower X",
@@ -36,6 +40,25 @@ const availableItems: Item[] = [
     rate: 50,
     owned: 0,
     short: "FlowerMower",
+    desc:
+      "Mows down fields of flowers and separates out petals with just a click of a button!",
+  },
+  {
+    name: "MagiGrowth™ Greenhouse",
+    cost: 2000,
+    rate: 100,
+    owned: 0,
+    short: "Greenhouse",
+    desc:
+      "Cultivate your own wildflower fields - or even advance to blooms never before seen!",
+  },
+  {
+    name: "Allium Alchemist",
+    cost: 1000000,
+    rate: 1000,
+    owned: 0,
+    short: "Alchemist",
+    desc: "Advance from gathering and synthesize your own petals!",
   },
 ];
 const buttons: HTMLButtonElement[] = [];
@@ -124,12 +147,14 @@ for (let i = 0; i < availableItems.length; ++i) {
   ownedDiv.append(div);
 }
 
+upgradeDiv.innerHTML = "<i>Hover for a tooltip!</i>";
 for (let i = 0; i < availableItems.length; ++i) {
   const butt = document.createElement("button");
   buttons.push(butt);
   butt.innerText = `Invest in a ${availableItems[i].name} for ${
     availableItems[i].cost
   } petals\n(+${availableItems[i].rate} petals/sec)`;
+  butt.title = availableItems[i].desc;
   butt.id = `${i}`;
   butt.addEventListener("click", (e) => {
     const butt: EventTarget | null = e?.target;
