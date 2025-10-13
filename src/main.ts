@@ -81,6 +81,12 @@ function incrementer() {
   requestAnimationFrame(incrementer);
 }
 
+function updateOwned(itemNum: number): void {
+  buttDivs[itemNum].innerHTML = `${availableItems[itemNum].short}s: ${
+    availableItems[itemNum].owned
+  } owned`;
+}
+
 overallDiv.id = "overall";
 document.body.append(overallDiv);
 infoDiv.id = "info";
@@ -139,9 +145,11 @@ for (let i = 0; i < availableItems.length; ++i) {
     const butt: EventTarget | null = e?.target;
     if (butt instanceof Element) {
       const itemNum = Number(butt.id);
+      ++availableItems[itemNum].owned;
       updateGrowth(availableItems[itemNum].rate);
       updateButton();
       updatePetals(-availableItems[itemNum].cost);
+      updateOwned(itemNum);
       availableItems[itemNum].cost = availableItems[itemNum].cost * 1.15;
       butt.innerHTML = `Invest in a ${availableItems[i].name} for ${
         availableItems[i].cost.toFixed(1)
