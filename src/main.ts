@@ -7,9 +7,6 @@ const counterDiv: HTMLDivElement = document.createElement("div");
 const growthDiv: HTMLDivElement = document.createElement("div");
 const ownedDiv: HTMLDivElement = document.createElement("div");
 const buttDivs: HTMLDivElement[] = [];
-const butt1Div: HTMLDivElement = document.createElement("div");
-const butt2Div: HTMLDivElement = document.createElement("div");
-const butt3Div: HTMLDivElement = document.createElement("div");
 const button: HTMLButtonElement = document.createElement("button");
 interface Item {
   name: string;
@@ -46,9 +43,6 @@ const buttons: HTMLButtonElement[] = [];
 let count: number = 0;
 let growthRate: number = 0;
 let start: number = performance.now();
-const butt1Owned: number = 0;
-const butt2Owned: number = 0;
-const butt3Owned: number = 0;
 
 function updatePetals(amt: number): void {
   count += amt;
@@ -112,18 +106,6 @@ button.addEventListener("click", () => {
 });
 
 infoDiv.append(ownedDiv);
-ownedDiv.append(butt1Div);
-ownedDiv.append(butt2Div);
-ownedDiv.append(butt3Div);
-butt1Div.className = "inner";
-butt2Div.className = "inner";
-butt3Div.className = "inner";
-butt1Div.innerHTML = `PetalPluckers: ${butt1Owned} owned`;
-butt2Div.innerHTML = `BloomBusters: ${butt2Owned} owned`;
-butt3Div.innerHTML = `FlowerMowers: ${butt3Owned} owned`;
-butt1Div.style.display = "none";
-butt2Div.style.display = "none";
-butt3Div.style.display = "none";
 
 for (let i = 0; i < availableItems.length; ++i) {
   const div = document.createElement("div");
