@@ -6,6 +6,7 @@ const upgradeDiv: HTMLDivElement = document.createElement("div");
 const counterDiv: HTMLDivElement = document.createElement("div");
 const growthDiv: HTMLDivElement = document.createElement("div");
 const ownedDiv: HTMLDivElement = document.createElement("div");
+const buttDivs: HTMLDivElement[] = [];
 const butt1Div: HTMLDivElement = document.createElement("div");
 const butt2Div: HTMLDivElement = document.createElement("div");
 const butt3Div: HTMLDivElement = document.createElement("div");
@@ -14,11 +15,31 @@ interface Item {
   name: string;
   cost: number;
   rate: number;
+  owned: number;
+  short: string;
 }
 const availableItems: Item[] = [
-  { name: "PetalPlucker 3000", cost: 10, rate: 0.1 },
-  { name: "BloomBuster 250", cost: 100, rate: 2 },
-  { name: "FlowerMower X", cost: 1000, rate: 50 },
+  {
+    name: "PetalPlucker 3000",
+    cost: 10,
+    rate: 0.1,
+    owned: 0,
+    short: "PetalPlucker",
+  },
+  {
+    name: "BloomBuster 250",
+    cost: 100,
+    rate: 2,
+    owned: 0,
+    short: "BloomBuster",
+  },
+  {
+    name: "FlowerMower X",
+    cost: 1000,
+    rate: 50,
+    owned: 0,
+    short: "FlowerMower",
+  },
 ];
 const buttons: HTMLButtonElement[] = [];
 
@@ -96,6 +117,16 @@ butt3Div.innerHTML = `FlowerMowers: ${butt3Owned} owned`;
 butt1Div.style.display = "none";
 butt2Div.style.display = "none";
 butt3Div.style.display = "none";
+
+for (let i = 0; i < availableItems.length; ++i) {
+  const div = document.createElement("div");
+  buttDivs.push(div);
+  div.innerText = `${availableItems[i].short}s: ${
+    availableItems[i].owned
+  } owned`;
+  div.className = "inner";
+  ownedDiv.append(div);
+}
 
 for (let i = 0; i < availableItems.length; ++i) {
   const butt = document.createElement("button");
