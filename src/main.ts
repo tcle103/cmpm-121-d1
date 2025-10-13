@@ -117,6 +117,20 @@ for (let i = 0; i < availableItems.length; ++i) {
   butt.innerText = `Invest in a ${availableItems[i].name} for ${
     availableItems[i].cost
   } petals\n(+${availableItems[i].rate} petals/sec)`;
+  butt.id = `${i}`;
+  butt.addEventListener("click", (e) => {
+    const butt: EventTarget | null = e?.target;
+    if (butt instanceof Element) {
+      const itemNum = Number(butt.id);
+      updateGrowth(availableItems[itemNum].rate);
+      updateButton();
+      updatePetals(-availableItems[itemNum].cost);
+      availableItems[itemNum].cost = availableItems[itemNum].cost * 1.15;
+      butt.innerHTML = `Invest in a ${availableItems[i].name} for ${
+        availableItems[i].cost.toFixed(1)
+      } petals\n(+${availableItems[i].rate} petals/sec)`;
+    }
+  });
   upgradeDiv.append(butt);
 }
 
