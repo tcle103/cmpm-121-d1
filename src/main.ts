@@ -2,7 +2,7 @@ import "./style.css";
 
 // —— STATE ——————————————
 let count: number = 0;
-let growthRate: number = 0;
+let incomeRate: number = 0;
 let start: number = performance.now();
 interface Item {
   name: string;
@@ -12,7 +12,7 @@ interface Item {
   short: string;
   desc: string;
 }
-const availableItems: Item[] = [
+const generators: Item[] = [
   {
     name: "PetalPlucker 3000",
     cost: 10,
@@ -83,50 +83,48 @@ infoDiv.append(growthDiv);
 ownedDiv.className = "inner";
 counterDiv.className = "inner";
 growthDiv.className = "inner";
-growthDiv.innerHTML = `${growthRate.toFixed(1)} petals/sec`;
+growthDiv.innerHTML = `${incomeRate.toFixed(1)} petals/sec`;
 counterDiv.innerHTML = `Petals: ${count.toFixed(2)}`;
 
 button.innerText = "🥀";
 infoDiv.append(button);
 button.addEventListener("click", () => {
-  updatePetals(1);
+  updateCurrency(1);
 });
 
 infoDiv.append(ownedDiv);
 
-for (let i = 0; i < availableItems.length; ++i) {
+for (let i = 0; i < generators.length; ++i) {
   const div = document.createElement("div");
   buttDivs.push(div);
-  div.innerText = `${availableItems[i].short}s: ${
-    availableItems[i].owned
-  } owned`;
+  div.innerText = `${generators[i].short}s: ${generators[i].owned} owned`;
   div.className = "inner";
   div.style.display = "none";
   ownedDiv.append(div);
 }
 
 upgradeDiv.innerHTML = "<i>Hover for a tooltip!</i>";
-for (let i = 0; i < availableItems.length; ++i) {
+for (let i = 0; i < generators.length; ++i) {
   const butt = document.createElement("button");
   buttons.push(butt);
-  butt.innerText = `Invest in a ${availableItems[i].name} for ${
-    availableItems[i].cost
-  } petals\n(+${availableItems[i].rate} petals/sec)`;
-  butt.title = availableItems[i].desc;
+  butt.innerText = `Invest in a ${generators[i].name} for ${
+    generators[i].cost
+  } petals\n(+${generators[i].rate} petals/sec)`;
+  butt.title = generators[i].desc;
   butt.id = `${i}`;
   butt.addEventListener("click", (e) => {
     const butt: EventTarget | null = e?.target;
     if (butt instanceof Element) {
       const itemNum = Number(butt.id);
-      ++availableItems[itemNum].owned;
-      updateGrowth(availableItems[itemNum].rate);
+      ++generators[itemNum].owned;
+      updateGrowth(generators[itemNum].rate);
       updateButton();
-      updatePetals(-availableItems[itemNum].cost);
+      updateCurrency(-generators[itemNum].cost);
       updateOwned(itemNum);
-      availableItems[itemNum].cost = availableItems[itemNum].cost * 1.15;
-      butt.innerHTML = `Invest in a ${availableItems[i].name} for ${
-        availableItems[i].cost.toFixed(1)
-      } petals\n(+${availableItems[i].rate} petals/sec)`;
+      generators[itemNum].cost = generators[itemNum].cost * 1.15;
+      butt.innerHTML = `Invest in a ${generators[i].name} for ${
+        generators[i].cost.toFixed(1)
+      } petals\n(+${generators[i].rate} petals/sec)`;
     }
   });
   upgradeDiv.append(butt);
@@ -134,7 +132,7 @@ for (let i = 0; i < availableItems.length; ++i) {
 
 // —— FUNCTIONS ——————————
 // updates petal count and display
-function updatePetals(amt: number): void {
+function updateCurrency(amt: number): void {
   count += amt;
   counterDiv.innerHTML = `Petals: ${count.toFixed(2)}`;
   updateButton();
@@ -144,7 +142,7 @@ function updatePetals(amt: number): void {
 // if player has enough petals to buy upgrade
 function updateButton(): void {
   for (let i: number = 0; i < buttons.length; ++i) {
-    if (count >= availableItems[i].cost) {
+    if (count >= generators[i].cost) {
       buttons[i].disabled = false;
     } else {
       buttons[i].disabled = true;
@@ -154,8 +152,8 @@ function updateButton(): void {
 
 // updates growth rate status in accordance to updates
 function updateGrowth(amt: number): void {
-  growthRate += amt;
-  growthDiv.innerHTML = `${growthRate.toFixed(1)} petals/sec`;
+  incomeRate += amt;
+  growthDiv.innerHTML = `${incomeRate.toFixed(1)} petals/sec`;
 }
 
 // animates smooth increase w/ growth rate
@@ -164,15 +162,15 @@ function incrementer() {
   const elapsed = now - start;
   start = now;
 
-  const inc = elapsed / 1000 * growthRate;
-  updatePetals(inc);
+  const inc = elapsed / 1000 * incomeRate;
+  updateCurrency(inc);
   requestAnimationFrame(incrementer);
 }
 
 // updates display of how many of ea. upgrade owned
 function updateOwned(itemNum: number): void {
-  buttDivs[itemNum].innerHTML = `${availableItems[itemNum].short}s: ${
-    availableItems[itemNum].owned
+  buttDivs[itemNum].innerHTML = `${generators[itemNum].short}s: ${
+    generators[itemNum].owned
   } owned`;
   buttDivs[itemNum].style.display = "block";
 }
