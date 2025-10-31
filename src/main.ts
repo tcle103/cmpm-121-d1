@@ -87,6 +87,7 @@ growthDiv.innerHTML = `${incomeRate.toFixed(1)} petals/sec`;
 counterDiv.innerHTML = `Petals: ${count.toFixed(2)}`;
 
 button.innerText = "🥀";
+button.id = "petals";
 infoDiv.append(button);
 button.addEventListener("click", () => {
   updateCurrency(1);

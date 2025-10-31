@@ -2,6 +2,12 @@ body {
   background-color: mistyrose;
 }
 
+#petals {
+  height: 150px;
+  width: 150px;
+  font-size: 100px;
+}
+
 .icon {
   width: 64px;
   vertical-align: top;
