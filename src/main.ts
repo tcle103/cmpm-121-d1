@@ -1,13 +1,9 @@
 import "./style.css";
 
-const overallDiv: HTMLDivElement = document.createElement("div");
-const infoDiv: HTMLDivElement = document.createElement("div");
-const upgradeDiv: HTMLDivElement = document.createElement("div");
-const counterDiv: HTMLDivElement = document.createElement("div");
-const growthDiv: HTMLDivElement = document.createElement("div");
-const ownedDiv: HTMLDivElement = document.createElement("div");
-const buttDivs: HTMLDivElement[] = [];
-const button: HTMLButtonElement = document.createElement("button");
+// —— STATE ——————————————
+let count: number = 0;
+let growthRate: number = 0;
+let start: number = performance.now();
 interface Item {
   name: string;
   cost: number;
@@ -61,55 +57,17 @@ const availableItems: Item[] = [
     desc: "Advance from gathering and synthesize your own petals!",
   },
 ];
+
+// —— UI —————————————————
+const overallDiv: HTMLDivElement = document.createElement("div");
+const infoDiv: HTMLDivElement = document.createElement("div");
+const upgradeDiv: HTMLDivElement = document.createElement("div");
+const counterDiv: HTMLDivElement = document.createElement("div");
+const growthDiv: HTMLDivElement = document.createElement("div");
+const ownedDiv: HTMLDivElement = document.createElement("div");
+const buttDivs: HTMLDivElement[] = [];
+const button: HTMLButtonElement = document.createElement("button");
 const buttons: HTMLButtonElement[] = [];
-
-let count: number = 0;
-let growthRate: number = 0;
-let start: number = performance.now();
-
-// updates petal count and display
-function updatePetals(amt: number): void {
-  count += amt;
-  counterDiv.innerHTML = `Petals: ${count.toFixed(2)}`;
-  updateButton();
-}
-
-// updates button disabled/enabled depending on
-// if player has enough petals to buy upgrade
-function updateButton(): void {
-  for (let i: number = 0; i < buttons.length; ++i) {
-    if (count >= availableItems[i].cost) {
-      buttons[i].disabled = false;
-    } else {
-      buttons[i].disabled = true;
-    }
-  }
-}
-
-// updates growth rate status in accordance to updates
-function updateGrowth(amt: number): void {
-  growthRate += amt;
-  growthDiv.innerHTML = `${growthRate.toFixed(1)} petals/sec`;
-}
-
-// animates smooth increase w/ growth rate
-function incrementer() {
-  const now = performance.now();
-  const elapsed = now - start;
-  start = now;
-
-  const inc = elapsed / 1000 * growthRate;
-  updatePetals(inc);
-  requestAnimationFrame(incrementer);
-}
-
-// updates display of how many of ea. upgrade owned
-function updateOwned(itemNum: number): void {
-  buttDivs[itemNum].innerHTML = `${availableItems[itemNum].short}s: ${
-    availableItems[itemNum].owned
-  } owned`;
-  buttDivs[itemNum].style.display = "block";
-}
 
 overallDiv.id = "overall";
 document.body.append(overallDiv);
@@ -174,4 +132,50 @@ for (let i = 0; i < availableItems.length; ++i) {
   upgradeDiv.append(butt);
 }
 
+// —— FUNCTIONS ——————————
+// updates petal count and display
+function updatePetals(amt: number): void {
+  count += amt;
+  counterDiv.innerHTML = `Petals: ${count.toFixed(2)}`;
+  updateButton();
+}
+
+// updates button disabled/enabled depending on
+// if player has enough petals to buy upgrade
+function updateButton(): void {
+  for (let i: number = 0; i < buttons.length; ++i) {
+    if (count >= availableItems[i].cost) {
+      buttons[i].disabled = false;
+    } else {
+      buttons[i].disabled = true;
+    }
+  }
+}
+
+// updates growth rate status in accordance to updates
+function updateGrowth(amt: number): void {
+  growthRate += amt;
+  growthDiv.innerHTML = `${growthRate.toFixed(1)} petals/sec`;
+}
+
+// animates smooth increase w/ growth rate
+function incrementer() {
+  const now = performance.now();
+  const elapsed = now - start;
+  start = now;
+
+  const inc = elapsed / 1000 * growthRate;
+  updatePetals(inc);
+  requestAnimationFrame(incrementer);
+}
+
+// updates display of how many of ea. upgrade owned
+function updateOwned(itemNum: number): void {
+  buttDivs[itemNum].innerHTML = `${availableItems[itemNum].short}s: ${
+    availableItems[itemNum].owned
+  } owned`;
+  buttDivs[itemNum].style.display = "block";
+}
+
+// begin animation for number incrementing
 requestAnimationFrame(incrementer);
